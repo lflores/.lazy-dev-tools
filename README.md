@@ -1,5 +1,45 @@
-# lazy-developer-tools
-This is a project to keep tools that enhance our productivity
+# lazy-dev-tools
+
+Es un conjunto de scripts que uso habitualmente como aceleradores de las tareas diarias.
+Todos los comandos ya existen en las correspondientes herramientas, pero recordar su sintaxis a veces es complicado.
+El objetivo de éste proyecto es unir todas las tareas, scripts o ejecuciones repetitivas en una misma herramienta, de ahí su nombre.
+
+El funcionamiento se basa en un laucher básico que se encarga por un lado de escanear los directorios donde están los scrips, y por otro lado comprobar que el script buscado existe.
+El launcher se encarga de evaluar los parámetros que se le pasan, el primer parámetro se refiere a la carpeta mencionada, y el segundo se refiere al script que buscamos ejecutar.
+
+## Install 
+
+Como primer paso hay que descargar el proyecto en alguna carpeta local
+
+```bash
+git clone git@github.com:lflores/lazy-dev-tools.git
+```
+
+El segundo paso es agregar la carpeta al path en la configuración de la consola, y ejecutar source o cerrar la terminal y volver a cargarla.
+
+```bash
+export PATH=~/<folder>/lazy-dev-tools:$PATH
+source ~/.zshrc
+```
+
+Con ésta configuración cargada podremos ejecutar lazy-dev-tools tipeando el comando en la consola.
+
+También si no queremos escribir todo el comando podemos agregarle un alias para poder acceder más fácilmente.
+
+```bash
+alias ldt='lazy-developer-tools'
+```
+
+Ahora con el alias, solo tendremos que escribir 'ldt' en la consola o lo que sea que le hayamos puesto como alias.
+
+## Use
+
+Una vez configurado el launcher con solo ejecutarlo sin parámetros nos devolverá una ayuda de como ejecutar los scripts.
+Con la primera ejecución devuelve la lista de los topicos/carpetas donde se encuentran los scripts dentro de la carpeta de scripts.
+Cuando ingresamos el comando junto al primer parámetro elegido de la lista, nos devolverá una lista de los comandos/scripts que tendremos dentro del tópico elegido.
+Agregado el segundo parámetro veremos la ejecución del script que puede requerir algún parámetro más.
+
+
 
 ## Tools
 
