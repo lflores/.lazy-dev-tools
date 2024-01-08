@@ -2,7 +2,7 @@
 
 # ========================
 # By Triad for lazy-developer-tools
-# Version 1.1
+# Version 0.0.1
 # ========================
 FILENAME_ARN_MFA=".arn-mfa"
 DEFAULT_FILENAME_ARN_MFA=".arn-mfa"

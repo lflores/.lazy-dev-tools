@@ -70,10 +70,15 @@ fi
 # Verifica si el script existe
 SCRIPT="$SCRIPTS_DIR/$1/$2.sh"
 if [ ! -f "$SCRIPT" ]; then
-    echo "El script '$2' no existe."
+    echo "The script '$2' doesn't exist."
     show_scripts $1
     exit 1
 fi
 
-# Execute selected script
-bash "$SCRIPT"
+# remove first parameter that is module
+shift  
+# remove second parameter that is script name
+shift  
+
+# Execute selected script with parameters
+bash "$SCRIPT" "$@" 
