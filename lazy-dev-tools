@@ -10,7 +10,7 @@ LIGHT_BLUE='\033[1;34m'
 NC='\033[0m' # No Color
 
 # Search this source script path
-BASE_DIR="$(dirname -- "$BASH_SOURCE")";
+BASE_DIR="$(dirname -- "$BASH_SOURCE")"
 # Define scripts navigation path
 SCRIPTS_DIR="$BASE_DIR/scripts"
 
@@ -23,31 +23,37 @@ show_scripts() {
 }
 
 # Show modules options
-show_options(){
+show_options() {
     echo "Show options: "
     # module=$(find . -maxdepth 1 -type d | sed 's|./||' | fzf --height 40%)
     for folder in $SCRIPTS_DIR/*/; do
-       echo -e "  - ${LIGHT_GREEN}$(basename "$folder")${NC}"
+        echo -e "  - ${GREEN}$(basename "$folder")${NC}"
     done
+}
+
+show_ubuntu_installer() {
+    echo -e "${YELLOW}Or if you have Ubuntu, please follow next url for more info https://command-not-found.com/$1${NC}"
 }
 
 #check if jq command exists
 has_jq=$(jq --help)
 if [ $? -ne 0 ]; then
-    echo -e "${LIGHT_RED}'jq' tool is required please install using 'sudo apt install jq'${NC}"
+    echo -e "${LIGHT_RED}'jq' tool is required please install using 'sudo apt install jq'."
+    show_ubuntu_installer "jq"
     exit
 fi
 
 #check if fzf command exists
 has_jq=$(fzf --help)
 if [ $? -ne 0 ]; then
-    echo -e "${LIGHT_RED}'fzf' tool is required please install using 'sudo apt install fzf'${NC}"
+    echo -e "${LIGHT_RED}'fzf' tool is required please install using 'sudo apt install fzf'${NC}."
+    show_ubuntu_installer "fzf"
     exit
 fi
 
 # Check if receive model indicator or first param
 if [ -z "$1" ]; then
-    echo "Please, give a module name, such as aws, bash docker etc."
+    echo -e "${LIGHT_GREEN}Please, give a module name, such as aws, bash docker etc.${NC}"
     show_options
     exit 1
 fi
@@ -66,19 +72,29 @@ if [ -z "$2" ]; then
     exit 1
 fi
 
+# Check if script name exists
+SCRIPT_SH="$SCRIPTS_DIR/$1/$2.sh"
+SCRIPT_PY="$SCRIPTS_DIR/$1/$2.py"
 
-# Verifica si el script existe
-SCRIPT="$SCRIPTS_DIR/$1/$2.sh"
-if [ ! -f "$SCRIPT" ]; then
-    echo "The script '$2' doesn't exist."
+#check if python3 exist
+has_python=$(python3 --help)
+
+# Verify if python script exists and check if aso exist python3 command to run it
+if [ -f "$SCRIPT_PY" ] && [ $? -ne 0 ]; then
+    echo -e "${LIGHT_RED}'python3' tool is required please install using 'sudo apt install python3'${NC}"
+    show_ubuntu_installer "python3"
+    exit
+fi
+
+if [ -f "$SCRIPT_SH" ]; then
+    echo -e "${LIGHT_GREEN}running: ${NC} $1 $(basename $SCRIPT_SH)..."
+    bash "$SCRIPT_SH" "${@:3}" # Pasar los argumentos adicionales
+
+elif [ -f "$SCRIPT_PY" ]; then
+    echo -e "${LIGHT_GREEN}running :${NC} $1 $(basename $SCRIPT_PY)..."
+    python3 "$SCRIPT_PY" "${@:3}" # Pasar los argumentos adicionales
+else
+    echo -e "${YELLOW}The script '$2' with extension sh or py doesn't exist.${NC}"
     show_scripts $1
     exit 1
 fi
-
-# remove first parameter that is module
-shift  
-# remove second parameter that is script name
-shift  
-
-# Execute selected script with parameters
-bash "$SCRIPT" "$@" 
