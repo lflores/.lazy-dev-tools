@@ -87,12 +87,13 @@ if [ -f "$SCRIPT_PY" ] && [ $? -ne 0 ]; then
 fi
 
 if [ -f "$SCRIPT_SH" ]; then
-    echo -e "${LIGHT_GREEN}running: ${NC} $1 $(basename $SCRIPT_SH)..."
-    bash "$SCRIPT_SH" "${@:3}" # Pasar los argumentos adicionales
-
+    echo -e "${LIGHT_GREEN}running: ${NC} $1 $(basename $SCRIPT_SH)...\n----------------------------"
+    bash "$SCRIPT_SH" "${@:3}" # Send additional arguments
+    echo "--------------------------"
 elif [ -f "$SCRIPT_PY" ]; then
-    echo -e "${LIGHT_GREEN}running :${NC} $1 $(basename $SCRIPT_PY)..."
-    python3 "$SCRIPT_PY" "${@:3}" # Pasar los argumentos adicionales
+    echo -e "${LIGHT_GREEN}running :${NC} $1 $(basename $SCRIPT_PY)...\n----------------------------"
+    python3 "$SCRIPT_PY" "${@:3}" # Send additional arguments
+    echo "--------------------------"
 else
     echo -e "${YELLOW}The script '$2' with extension sh or py doesn't exist.${NC}"
     show_scripts $1
