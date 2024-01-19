@@ -16,6 +16,6 @@ PROJECT_DIR="$HOME/.lazy-dev-tools"
 #removing project
 echo "${GREEN}Removing .lazy-dev-tools project from ~/bin/lazy-dev-tools...${NC}"
 rm -fr ~/bin/lazy-dev-tools
-rm -fr ~/${PROJECT_DIR}
+echo rm -fr ~/${PROJECT_DIR}
 
 echo "${LIGHT_GREEN}Uninstallation complete. Now you can't run lazy-dev-tools.${NC}"
