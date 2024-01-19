@@ -14,8 +14,8 @@ PROJECT_REPO="https://github.com/lflores/.lazy-dev-tools.git"
 PROJECT_DIR="$HOME/.lazy-dev-tools"
 
 #removing project
-echo -e "${GREEN}Removing .lazy-dev-tools project from ~/bin/lazy-dev-tools...${NC}"
+echo "${GREEN}Removing .lazy-dev-tools project from ~/bin/lazy-dev-tools...${NC}"
 rm -fr ~/bin/lazy-dev-tools
 rm -fr ~/${PROJECT_DIR}
 
-echo -e "${LIGHT_GREEN}Uninstallation complete. Now you can't run lazy-dev-tools.${NC}"
+echo "${LIGHT_GREEN}Uninstallation complete. Now you can't run lazy-dev-tools.${NC}"
