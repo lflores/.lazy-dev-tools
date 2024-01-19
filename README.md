@@ -22,6 +22,8 @@ sh -c "$(curl -fsSL https://github.com/lflores/.lazy-dev-tools/blob/develop/tool
 sh -c "$(curl -fsSL  https://raw.githubusercontent.com/lflores/.lazy-dev-tools/develop/tools/install.sh?token=GHSAT0AAAAAACMNUTF3T3SZXFK2U6EQGUP4ZNK5CXA)"
 sh -c "$(curl -fsSL  https://raw.githubusercontent.com/lflores/.lazy-dev-tools/main/tools/install.sh)"
 sh -c "$(curl -fsSL  https://raw.githubusercontent.com/lflores/.lazy-dev-tools/main/tools/uninstall.sh)"
+
+alias ldt="~/bin/lazy-dev-tools"
 ```
 
 ```bash
