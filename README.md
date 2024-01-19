@@ -17,6 +17,13 @@ Si te interesa agregar información para otras plataformas, ponete en contacto c
 Como primer paso hay que descargar el proyecto en alguna carpeta local
 
 ```bash
+sh -c "$(curl -fsSL https://github.com/lflores/.lazy-dev-tools/blob/develop/tools/install.sh)" 
+
+sh -c "$(curl https://raw.githubusercontent.com/lflores/.lazy-dev-tools/develop/tools/install.sh?token=GHSAT0AAAAAACMNUTF3T3SZXFK2U6EQGUP4ZNK5CXA)"
+
+```
+
+```bash
 git clone git@github.com:lflores/.lazy-dev-tools.git
 ```
 

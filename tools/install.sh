@@ -13,6 +13,14 @@ show_ubuntu_installer() {
     echo -e "${YELLOW}Or if you have Ubuntu, please follow next url for more info https://command-not-found.com/$1${NC}"
 }
 
+# check if curl is installed
+has_git=$(curl --help)
+if [ $? -ne 0 ]; then
+    echo -e "${LIGHT_RED}'curl' tool is required please install using 'sudo apt install curl'."
+    show_ubuntu_installer "curl"
+    exit
+fi
+
 # check if git is installed
 has_git=$(git --help)
 if [ $? -ne 0 ]; then
