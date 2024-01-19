@@ -14,7 +14,7 @@ show_ubuntu_installer() {
 }
 
 # check if curl is installed
-has_git=$(curl --help)
+has_curl=$(curl --help)
 if [ $? -ne 0 ]; then
     echo -e "${LIGHT_RED}'curl' tool is required please install using 'sudo apt install curl'."
     show_ubuntu_installer "curl"
@@ -56,7 +56,7 @@ ln -s "$PROJECT_DIR/lazy-dev-tools.sh" "$HOME/bin/lazy-dev-tools"
 
 # Verify if the symbolic link could be created
 if [ $? -ne 0 ]; then
-  echo -e "${RED}Error:${NC} ${YELLOW}No se pudo crear el enlace simbólico en el directorio binario.${NC}"
+  echo -e "${RED}Error:${NC} ${YELLOW}Could not create symbolic link in binary directory.${NC}"
   exit 1
 fi
 
