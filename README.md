@@ -19,22 +19,15 @@ Como primer paso hay que descargar el proyecto en alguna carpeta local
 ```bash
 sh -c "$(curl -fsSL https://github.com/lflores/.lazy-dev-tools/blob/develop/tools/install.sh)" 
 
-sh -c "$(curl -fsSL  https://raw.githubusercontent.com/lflores/.lazy-dev-tools/develop/tools/install.sh?token=GHSAT0AAAAAACMNUTF3T3SZXFK2U6EQGUP4ZNK5CXA)"
 sh -c "$(curl -fsSL  https://raw.githubusercontent.com/lflores/.lazy-dev-tools/main/tools/install.sh)"
 sh -c "$(curl -fsSL  https://raw.githubusercontent.com/lflores/.lazy-dev-tools/main/tools/uninstall.sh)"
-
-alias ldt="~/bin/lazy-dev-tools"
-```
-
-```bash
-git clone git@github.com:lflores/.lazy-dev-tools.git
 ```
 
 El segundo paso es agregar la carpeta al path en la configuración de la consola, y ejecutar source o cerrar la terminal y volver a cargarla.
 
 ```bash
-export PATH=~/<folder>/.lazy-dev-tools:$PATH
-source ~/.zshrc
+export PATH=~/bin/:$PATH
+alias ldt='lazy-dev-tools'
 ```
 
 Con ésta configuración cargada podremos ejecutar lazy-dev-tools tipeando el comando en la consola.
