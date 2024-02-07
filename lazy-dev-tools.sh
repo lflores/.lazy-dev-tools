@@ -10,7 +10,8 @@ LIGHT_BLUE='\033[1;34m'
 NC='\033[0m' # No Color
 
 # Search this source script path
-BASE_DIR="$(dirname -- "$BASH_SOURCE")"
+# BASE_DIR="$(dirname -- "$BASH_SOURCE")"
+BASE_DIR="$(dirname $(readlink -f ${BASH_SOURCE[0]}))"
 # Define scripts navigation path
 SCRIPTS_DIR="$BASE_DIR/scripts"
 
