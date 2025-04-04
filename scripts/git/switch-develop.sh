@@ -1,14 +1,11 @@
 #!/bin/bash
-
-# ========================
-RED='\033[0;31m'
-GREEN='\033[0;32m'
-CYAN='\033[0;36m'
-LIGHT_RED='\033[1;31m'
-LIGHT_GREEN='\033[1;32m'
-YELLOW='\033[1;33m'
-LIGHT_BLUE='\033[1;34m'
-NC='\033[0m' # No Color
+# =======================================================
+# import utils code
+# Read <root dir>/tools/utils.sh for more info
+SCRIPT_DIR="$(dirname $(readlink -f ${BASH_SOURCE[0]}))"
+BASE_DIR="$(realpath "$SCRIPT_DIR/../../")"
+source "${BASE_DIR}/tools/utils.sh"
+# =======================================================
 
 switch_develop() {
     folder=$(basename "$PWD")
@@ -26,7 +23,7 @@ switch_develop() {
         # I believe that not to be forced here, because make slow method answer
         # Created Issue#12
     else
-        echo -e "${LIGHT_GREEN}- $folder ${LIGHT_RED}❌${NC}$branch"
+        echo -e "${LIGHT_GREEN}- $folder ${LIGHT_RED}❌${NC}$branch, ${LIGTH_BLUE} 🔀${NC} switching to ${LIGHT_GREEN}develop${NC}"
         git branch | grep 'develop' | xargs -n 1 git checkout
         # I believe that not to be forced here, because make slow method answer
         # Created Issue#12
