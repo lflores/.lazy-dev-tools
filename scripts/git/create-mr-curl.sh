@@ -64,7 +64,7 @@ create_merge_request() {
     fi
 }
 
-PAT_FILE=".gitlab_pat"
+PAT_FILE="~/.gitlab_pat"
 
 #check if jq command exists
 has_fzf=$(fzf --help)
@@ -94,6 +94,7 @@ echo "✅ Gitlab PAT token has been loaded"
 
 echo "The token is $GITLAB_TOKEN"
 
+exit 0
 echo -e "${GREEN}Please select origin branch${NC}"
 if git branch > /dev/null 2>&1; then
     branches=$(git branch | awk '{if (NR!=1) print $1 ": " $(2) " -> " $(NF)}' | fzf --height 40%)

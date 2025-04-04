@@ -23,13 +23,13 @@ switch_develop() {
     branch=$(git rev-parse --abbrev-ref HEAD)
     if [[ "$branch" == "develop" ]]; then
         echo -e "${LIGHT_GREEN}- $folder ${NC} ${LIGHT_GREEN}✔ ${NC}$branch"
-        git fetch --force
-        git pull
+        # I believe that not to be forced here, because make slow method answer
+        # Created Issue#12
     else
         echo -e "${LIGHT_GREEN}- $folder ${LIGHT_RED}❌${NC}$branch"
         git branch | grep 'develop' | xargs -n 1 git checkout
-        git fetch --force
-        git pull
+        # I believe that not to be forced here, because make slow method answer
+        # Created Issue#12
     fi
 }
 
