@@ -44,7 +44,7 @@ if [ $? -ne 0 ]; then
 fi
 
 #check if fzf command exists
-has_jq=$(fzf --help)
+has_fzf=$(fzf --help)
 if [ $? -ne 0 ]; then
     echo -e "${LIGHT_RED}'fzf' tool is required please install using 'sudo apt install fzf'${NC}."
     show_ubuntu_installer "fzf"
@@ -83,7 +83,7 @@ has_python=$(python3 --help)
 if [ -f "$SCRIPT_PY" ] && [ $? -ne 0 ]; then
     echo -e "${LIGHT_RED}'python3' tool is required please install using 'sudo apt install python3'${NC}"
     show_ubuntu_installer "python3"
-    exit
+    exit 1
 fi
 
 if [ -f "$SCRIPT_SH" ]; then
