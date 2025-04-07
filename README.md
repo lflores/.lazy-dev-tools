@@ -71,4 +71,4 @@ Id: davidnussio.vscode-jq-playground
 Description: Visual Code integration with jq
 Version: 4.3.5
 Publisher: David Nussio
-VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=davidnussio.vscode-jq-playground
+[VS Marketplace Link](https://marketplace.visualstudio.com/items?itemName=davidnussio.vscode-jq-playground)
