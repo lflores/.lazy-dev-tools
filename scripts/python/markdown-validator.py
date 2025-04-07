@@ -93,7 +93,10 @@ def validate_links(tree):
         if link.link_type == LinkType.LOCAL:
             if check_link(os.path.dirname(tree.filepath),link):
                 link.set_valid(True)
-            print(f"{link}")            
+            print(f"{link}")
+        if link.link_type == LinkType.INTERNET:
+            link.set_valid(True)
+            print(f"{link}")                 
     return
 
 def check_link(filepath, link):
@@ -135,3 +138,4 @@ print(f"{GREEN}Searching in folder {NC}'{foldername}' the file '{YELLOW}{filenam
 
 dependency_tree = generate_file_tree(filename)
 validate_links(dependency_tree)
+parser.print_help()

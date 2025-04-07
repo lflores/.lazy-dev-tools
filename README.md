@@ -17,14 +17,17 @@ Si te interesa agregar información para otras plataformas, ponete en contacto c
 Como primer paso hay que descargar el proyecto en alguna carpeta local
 
 ```bash
-git clone git@github.com:lflores/.lazy-dev-tools.git
+sh -c "$(curl -fsSL https://github.com/lflores/.lazy-dev-tools/blob/develop/tools/install.sh)" 
+
+sh -c "$(curl -fsSL  https://raw.githubusercontent.com/lflores/.lazy-dev-tools/main/tools/install.sh)"
+sh -c "$(curl -fsSL  https://raw.githubusercontent.com/lflores/.lazy-dev-tools/main/tools/uninstall.sh)"
 ```
 
 El segundo paso es agregar la carpeta al path en la configuración de la consola, y ejecutar source o cerrar la terminal y volver a cargarla.
 
 ```bash
-export PATH=~/<folder>/.lazy-dev-tools:$PATH
-source ~/.zshrc
+export PATH=~/bin/:$PATH
+alias ldt='lazy-dev-tools'
 ```
 
 Con ésta configuración cargada podremos ejecutar lazy-dev-tools tipeando el comando en la consola.
@@ -68,4 +71,4 @@ Id: davidnussio.vscode-jq-playground
 Description: Visual Code integration with jq
 Version: 4.3.5
 Publisher: David Nussio
-VS Marketplace Link: https://marketplace.visualstudio.com/items?itemName=davidnussio.vscode-jq-playground
+[VS Marketplace Link](https://marketplace.visualstudio.com/items?itemName=davidnussio.vscode-jq-playground)
