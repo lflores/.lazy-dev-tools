@@ -86,26 +86,25 @@ fi
 SCRIPT_SH="$SCRIPTS_DIR/$1/$2.sh"
 SCRIPT_PY="$SCRIPTS_DIR/$1/$2.py"
 
-#check if python3 exist
-has_python=$(python3 --help)
-
-# Verify if python script exists and check if aso exist python3 command to run it
-if [ -f "$SCRIPT_PY" ] && [ $? -ne 0 ]; then
-    echo -e "${LIGHT_RED}'python3' tool is required please install using 'sudo apt install python3'${NC}"
-    show_ubuntu_installer "python3"
-    exit 1
-fi
-
 if [ -f "$SCRIPT_SH" ]; then
-    echo -e "${LIGHT_GREEN}running: ${NC} $1 $(basename $SCRIPT_SH)...\n----------------------------"
+    echo -e "${LIGHT_GREEN}🚀 Running: ${NC} $1 $(basename $SCRIPT_SH)...\n----------------------------"
     bash "$SCRIPT_SH" "${@:3}" # Send additional arguments
     echo "--------------------------"
 elif [ -f "$SCRIPT_PY" ]; then
-    echo -e "${LIGHT_GREEN}running :${NC} $1 $(basename $SCRIPT_PY)...\n----------------------------"
+    #check if python3 exist
+    has_python=$(python3 --help)
+
+    # Verify if python script exists and check if aso exist python3 command to run it
+    if [ -f "$SCRIPT_PY" ] && [ $? -ne 0 ]; then
+        echo -e "${LIGHT_RED}'python3' tool is required please install using 'sudo apt install python3'${NC}"
+        show_ubuntu_installer "python3"
+        exit 1
+    fi
+    echo -e "${LIGHT_GREEN}🚀 running :${NC} $1 $(basename $SCRIPT_PY)...\n----------------------------"
     python3 "$SCRIPT_PY" "${@:3}" # Send additional arguments
     echo "--------------------------"
 else
-    echo -e "${YELLOW}The script '$2' with extension sh or py doesn't exist.${NC}"
+    echo -e "${LIGHT_RED}❌${NC} The script ${YELLOW}'$2'${NC} with extension sh or py doesn't exist."
     show_scripts $1
     exit 1
 fi
