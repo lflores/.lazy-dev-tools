@@ -28,7 +28,7 @@ complete -F _autocompletar_parametro lazy-dev-tools.sh
 show_scripts() {
     echo "Allowed scripts:"
     for script in "$SCRIPTS_DIR/$1"/*; do
-        echo -e "  - ${GREEN}$(basename $script .sh)${NC}"
+        echo -e "  ◼ ${GREEN}$(basename $script .sh)${NC}"
     done
 }
 
@@ -37,7 +37,7 @@ show_options() {
     echo "Show options: "
     # module=$(find . -maxdepth 1 -type d | sed 's|./||' | fzf --height 40%)
     for folder in $SCRIPTS_DIR/*/; do
-        echo -e "  - ${GREEN}$(basename "$folder")${NC}"
+        echo -e "  ◼ ${GREEN}$(basename "$folder")${NC}"
     done
 }
 
@@ -48,7 +48,7 @@ show_ubuntu_installer() {
 #check if jq command exists
 has_jq=$(jq --help)
 if [ $? -ne 0 ]; then
-    echo -e "${LIGHT_RED}'jq' tool is required please install using 'sudo apt install jq'."
+    echo -e "${LIGHT_RED}❗ 'jq'${NC} tool is required please install using 'sudo apt install jq'."
     show_ubuntu_installer "jq"
     exit
 fi
@@ -56,20 +56,20 @@ fi
 #check if fzf command exists
 has_fzf=$(fzf --help)
 if [ $? -ne 0 ]; then
-    echo -e "${LIGHT_RED}'fzf' tool is required please install using 'sudo apt install fzf'${NC}."
+    echo -e "${LIGHT_RED}❗ 'fzf'{NC} tool is required please install using 'sudo apt install fzf'${NC}."
     show_ubuntu_installer "fzf"
     exit
 fi
 
 # Check if receive model indicator or first param
 if [ -z "$1" ]; then
-    echo -e "${LIGHT_GREEN}Please, give a module name, such as aws, bash docker etc.${NC}"
+    echo -e "${LIGHT_BLUE}❓ ${NC}Please give me a module name, such as aws, bash docker etc."
     show_options
     exit 1
 fi
 
 if [ ! -d "$SCRIPTS_DIR/$1" ]; then
-    echo "The module $1 does not exist"
+    echo -e "${LIGHT_RED}❌${NC} The module ${YELLOW}'$1'${NC} does not exist"
     echo "Please insert valid module name"
     show_options
     exit 1
@@ -77,7 +77,7 @@ fi
 
 # Check if receive script name to execute
 if [ -z "$2" ]; then
-    echo "Please, give me a script name."
+    echo -e "${LIGHT_BLUE}❓ ${NC}Please, give me a script name."
     show_scripts $1
     exit 1
 fi
