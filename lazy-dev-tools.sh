@@ -63,7 +63,7 @@ fi
 
 # Check if receive model indicator or first param
 if [ -z "$1" ]; then
-    echo -e "${LIGHT_BLUE}❓ ${NC}Please give me a module name, such as aws, bash docker etc."
+    echo -e "${LIGHT_BLUE}💬 ${NC}Please give me a module name, such as aws, bash docker etc."
     show_options
     exit 1
 fi
@@ -77,7 +77,7 @@ fi
 
 # Check if receive script name to execute
 if [ -z "$2" ]; then
-    echo -e "${LIGHT_BLUE}❓ ${NC}Please, give me a script name."
+    echo -e "${LIGHT_BLUE}💬 ${NC}Please, give me a script name."
     show_scripts $1
     exit 1
 fi
