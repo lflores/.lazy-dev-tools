@@ -10,9 +10,19 @@ LIGHT_BLUE='\033[1;34m'
 NC='\033[0m' # No Color
 
 # Search this source script path
-BASE_DIR="$(dirname -- "$BASH_SOURCE")"
+# BASE_DIR="$(dirname -- "$BASH_SOURCE")"
+BASE_DIR="$(dirname $(readlink -f ${BASH_SOURCE[0]}))"
 # Define scripts navigation path
 SCRIPTS_DIR="$BASE_DIR/scripts"
+
+# Función de autocompletación para un parámetro específico
+_autocompletar_parametro() {
+    local parametros=("opcion1" "opcion2" "opcion3")
+    COMPREPLY=($(compgen -W "${parametros[*]}" -- "${COMP_WORDS[COMP_CWORD]}"))
+}
+
+# Registra la función de autocompletación para el primer parámetro
+complete -F _autocompletar_parametro lazy-dev-tools.sh
 
 # List visible scripts
 show_scripts() {
@@ -44,7 +54,7 @@ if [ $? -ne 0 ]; then
 fi
 
 #check if fzf command exists
-has_jq=$(fzf --help)
+has_fzf=$(fzf --help)
 if [ $? -ne 0 ]; then
     echo -e "${LIGHT_RED}'fzf' tool is required please install using 'sudo apt install fzf'${NC}."
     show_ubuntu_installer "fzf"
@@ -76,26 +86,25 @@ fi
 SCRIPT_SH="$SCRIPTS_DIR/$1/$2.sh"
 SCRIPT_PY="$SCRIPTS_DIR/$1/$2.py"
 
-#check if python3 exist
-has_python=$(python3 --help)
-
-# Verify if python script exists and check if aso exist python3 command to run it
-if [ -f "$SCRIPT_PY" ] && [ $? -ne 0 ]; then
-    echo -e "${LIGHT_RED}'python3' tool is required please install using 'sudo apt install python3'${NC}"
-    show_ubuntu_installer "python3"
-    exit
-fi
-
 if [ -f "$SCRIPT_SH" ]; then
-    echo -e "${LIGHT_GREEN}running: ${NC} $1 $(basename $SCRIPT_SH)...\n----------------------------"
+    echo -e "${LIGHT_GREEN}🚀 Running: ${NC} $1 $(basename $SCRIPT_SH)...\n----------------------------"
     bash "$SCRIPT_SH" "${@:3}" # Send additional arguments
     echo "--------------------------"
 elif [ -f "$SCRIPT_PY" ]; then
-    echo -e "${LIGHT_GREEN}running :${NC} $1 $(basename $SCRIPT_PY)...\n----------------------------"
+    #check if python3 exist
+    has_python=$(python3 --help)
+
+    # Verify if python script exists and check if aso exist python3 command to run it
+    if [ -f "$SCRIPT_PY" ] && [ $? -ne 0 ]; then
+        echo -e "${LIGHT_RED}'python3' tool is required please install using 'sudo apt install python3'${NC}"
+        show_ubuntu_installer "python3"
+        exit 1
+    fi
+    echo -e "${LIGHT_GREEN}🚀 running :${NC} $1 $(basename $SCRIPT_PY)...\n----------------------------"
     python3 "$SCRIPT_PY" "${@:3}" # Send additional arguments
     echo "--------------------------"
 else
-    echo -e "${YELLOW}The script '$2' with extension sh or py doesn't exist.${NC}"
+    echo -e "${LIGHT_RED}❌${NC} The script ${YELLOW}'$2'${NC} with extension sh or py doesn't exist."
     show_scripts $1
     exit 1
 fi

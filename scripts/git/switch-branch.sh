@@ -1,9 +1,11 @@
 #!/bin/bash
-
-# ========================
+# =======================================================
+# import utils code
+# Read <root dir>/tools/utils.sh for more info
 SCRIPT_DIR="$(dirname $(readlink -f ${BASH_SOURCE[0]}))"
 BASE_DIR="$(realpath "$SCRIPT_DIR/../../")"
-source "${BASE_DIR}/tools/colors.sh"
+source "${BASE_DIR}/tools/utils.sh"
+# =======================================================
 
 switch_branch() {
     echo "$1"

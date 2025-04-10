@@ -7,26 +7,23 @@ BASE_DIR="$(realpath "$SCRIPT_DIR/../../")"
 source "${BASE_DIR}/tools/utils.sh"
 # =======================================================
 
-switch_develop() {
+branch_pull() {
     folder=$(basename "$PWD")
     if [ ! -d ".git" ]; then 
         echo -e "${LIGHT_GREEN}- $folder ${YELLOW}⚠ is not a git repository${NC}"
         return;
     fi
     if [[ -n $(git status --porcelain) ]]; then
-        echo -e "${LIGHT_GREEN}- $folder ${YELLOW}⚠ has pending commits, aborting switch to develop${NC}"
+        echo -e "${LIGHT_GREEN}- $folder ${YELLOW}⚠ has pending commits, aborting pull${NC}"
         return;
     fi
     branch=$(git rev-parse --abbrev-ref HEAD)
-    if [[ "$branch" == "develop" ]]; then
-        echo -e "${LIGHT_GREEN}- $folder ${NC} ${LIGHT_GREEN}✔ ${NC}$branch"
-        # I believe that not to be forced here, because make slow method answer
-        # Created Issue#12
+    pull_status=$(git pull)
+    if [[ "$pull_status" == "Already up to date." ]]; then
+        echo -e "${LIGHT_GREEN}- $folder ${NC} ${LIGHT_GREEN}✔ ${NC}$branch is up to date"
     else
-        echo -e "${LIGHT_GREEN}- $folder ${LIGHT_RED}❌${NC}$branch, ${LIGTH_BLUE} 🔀${NC} switching to ${LIGHT_GREEN}develop${NC}"
+        echo -e "${LIGHT_GREEN}- $folder ${LIGHT_RED}❌${NC}$branch was not up to date"
         git branch | grep 'develop' | xargs -n 1 git checkout
-        # I believe that not to be forced here, because make slow method answer
-        # Created Issue#12
     fi
 }
 
@@ -54,7 +51,7 @@ for folder in $FOLDERS; do
         continue;
     fi
     cd $PWD/$folder
-    switch_develop
+    branch_pull
     cd -> /dev/null
     ((counter++))
 done
