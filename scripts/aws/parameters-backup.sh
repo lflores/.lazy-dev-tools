@@ -9,21 +9,23 @@ source "${BASE_DIR}/tools/utils.sh"
 
 get_parameter_info() {
     FILENAME="$1"
-    echo -e "Backing up: $1"
-    VALUE=$(aws ssm get-parameter \
-        --name " $1" \
-        --query "Parameter.Value" \
-        --output text \
-    )
+    #echo -e "Backing up: $1"
+    VALUE=$(aws ssm get-parameter --name " $1" --query "Parameter.Value" --output text 2> /dev/null)
     # aws ssm get-parameter --name "/bppr/mb/move-money/popular-pay/certificate" --query "Parameter.Value" --output text
     # aws ssm get-parameter --name " /bppr/mb40/accounts/il/connection_info" --query "Parameter.Value" --output text
     # aws ssm get-parameters-by-path --path "/bppr/mb/move-money/popular-pay/certificate"
     # aws ssm describe-parameters --query "Parameters[*].Name" --output text
     # aws ssm describe-parameters --query "Parameters[?contains(Name,'config')].Name" --output string
     # aws ssm describe-parameters --query "Parameters[?contains(Name,'/bppr/mb40/accounts/il/connection_info')].Name" --output text
-
-    SAFE_NAME=$(echo $FILENAME | sed -E 's|^(/[^/]+)(.*)|\1\2|; s|/|_|g; s|^(/[^/]+)_|\1/|')
-    echo "$VALUE" > "$2/${SAFE_NAME}.json"
+    #echo -e "$VALUE"
+    if [[ -n $VALUE ]];then
+        echo -e "${LIGHT_GREEN}✔${NC} Parameter found: $1"
+        SAFE_NAME=$(echo $FILENAME | sed -E 's|^/||; s|/|_|g')
+        echo "$VALUE" > "$2/${SAFE_NAME}.json"
+        ((counter++))
+    else
+        echo -e "${LIGHT_RED}❌${NC} Parameter not found: $1"
+    fi
     return
 }
 
@@ -38,15 +40,15 @@ fi
 counter=0;
 ACCOUNT_ID=$(aws sts get-caller-identity --query Account --output json)
 ACCOUNT_ID=$(echo "$ACCOUNT_ID" | tr -d '"[:space:]')
+ACCOUNT_ID="parameters/$ACCOUNT_ID"
 
-if [[ ! -f $ACCOUNT_ID ]]; then
+if [[ ! -f "$ACCOUNT_ID" ]]; then
     echo -e "Creando ${ACCOUNT_ID}"
     mkdir -p "$ACCOUNT_ID"
 fi
 
 while IFS= read -r parameter; do
     get_parameter_info $parameter $ACCOUNT_ID
-    ((counter++))
 done < "$PARAMETERS_FILE"
 
-echo -e "Checked ${counter} parameters"
+echo -e "${LIGHT_GREEN}👀${NC} Backuped ${counter} parameters"
