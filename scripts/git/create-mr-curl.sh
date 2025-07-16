@@ -6,10 +6,7 @@ SCRIPT_DIR="$(dirname $(readlink -f ${BASH_SOURCE[0]}))"
 BASE_DIR="$(realpath "$SCRIPT_DIR/../../")"
 source "${BASE_DIR}/tools/utils.sh"
 # =======================================================
-
-SCRIPT_DIR="$(dirname $(readlink -f ${BASH_SOURCE[0]}))"
-BASE_DIR="$(realpath "$SCRIPT_DIR/../../")"
-source "${BASE_DIR}/tools/utils.sh"
+# Variables
 # 🔹 Configuración
 GITLAB_HOST="https://gitlab.com"     # Cambia si usas self-hosted GitLab
 
@@ -71,7 +68,7 @@ create_merge_request() {
     fi
 }
 
-PAT_FILE="~/.gitlab_pat"
+PAT_FILE="$HOME/.gitlab_pat"
 
 #check if jq command exists
 has_fzf=$(fzf --help)
@@ -81,7 +78,7 @@ if [ $? -ne 0 ]; then
     exit
 fi
 
-if [[ ! -f $PAT_FILE ]]; then 
+if [[ ! -r "$PAT_FILE" ]]; then 
     echo "❌ GitLab PAT file not found."
     echo ""
     echo "📌 How to create it:"
@@ -101,7 +98,7 @@ echo "✅ Gitlab PAT token has been loaded"
 
 echo "The token is $GITLAB_TOKEN"
 
-exit 0
+# exit 0
 echo -e "${GREEN}Please select origin branch${NC}"
 if git branch > /dev/null 2>&1; then
     branches=$(git branch | awk '{if (NR!=1) print $1 ": " $(2) " -> " $(NF)}' | fzf --height 40%)
